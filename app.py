@@ -46,8 +46,12 @@ def get_mask_image(mask_array):
     return base64.b64encode(buffered.getvalue()).decode('utf-8')
 
 @app.route('/')
-def index():
+def home():
     return render_template('braintumor.html')
+
+@app.route('/upload')
+def upload():
+    return render_template('upload.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -64,7 +68,7 @@ def predict():
         return jsonify({
             'tumor_type': tumor_type,
             'mask_image': f"data:image/png;base64,{mask_b64}",
-            'confidence': float(np.max(clf_pred))  # Add confidence score
+            'confidence': float(np.max(clf_pred))
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
