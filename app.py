@@ -49,7 +49,7 @@ def get_mask_image(mask_array):
 def home():
     return render_template('braintumor.html')
 
-@app.route('/upload')
+@app.route('/upload')  # This matches the button link
 def upload():
     return render_template('upload.html')
 
@@ -74,5 +74,4 @@ def predict():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host='0.0.0.0', port=5000, debug=True)
