@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import io
 import base64
 from PIL import Image
+import requests
+import shutil
 
 app = Flask(__name__)
 
@@ -19,18 +21,51 @@ label_mapping = {
     3: "No Tumor"
 }
 
-# Load the model with error handling
-model_path = os.path.join("model", "brain_tumor_model.h5")
-try:
-    model = load_model(model_path, compile=False)
-except Exception as e:
-    print(f"Error loading model with standard method: {e}")
+# Model configuration
+MODEL_URL = "https://drive.google.com/file/d/1-3KZAIoDLV98_5f9KH84tL07QyQBawxT/view?usp=sharing"  # Replace with your actual file ID
+MODEL_DIR = "model"
+MODEL_PATH = os.path.join(MODEL_DIR, "brain_tumor_model.h5")
+
+def download_model():
+    """Download the model file if it doesn't exist"""
+    if not os.path.exists(MODEL_PATH):
+        print("Downloading model...")
+        os.makedirs(MODEL_DIR, exist_ok=True)
+        
+        try:
+            # For Google Drive downloads
+            session = requests.Session()
+            response = session.get(MODEL_URL, stream=True)
+            
+            # Save the model file
+            with open(MODEL_PATH, "wb") as f:
+                shutil.copyfileobj(response.raw, f)
+            print("Model downloaded successfully!")
+            
+        except Exception as e:
+            print(f"Failed to download model: {e}")
+            raise
+
+def load_tumor_model():
+    """Load the model with comprehensive error handling"""
+    download_model()  # Ensure model exists
+    
     try:
-        model = tf.keras.models.load_model(model_path)
-        print("Model loaded successfully with tf.keras.models.load_model")
+        model = load_model(MODEL_PATH, compile=False)
+        print("Model loaded successfully with standard method")
+        return model
     except Exception as e:
-        print(f"Failed to load model: {e}")
-        raise
+        print(f"Standard load failed: {e}")
+        try:
+            model = tf.keras.models.load_model(MODEL_PATH)
+            print("Model loaded successfully with tf.keras method")
+            return model
+        except Exception as e:
+            print(f"All model loading methods failed: {e}")
+            raise
+
+# Load the model when starting the app
+model = load_tumor_model()
 
 def preprocess_image(file):
     img = Image.open(file).convert("RGB")
@@ -49,7 +84,7 @@ def get_mask_image(mask_array):
 def home():
     return render_template('braintumor.html')
 
-@app.route('/upload')  # This matches the button link
+@app.route('/upload')
 def upload():
     return render_template('upload.html')
 
