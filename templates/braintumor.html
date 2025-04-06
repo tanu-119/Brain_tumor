@@ -321,39 +321,18 @@
     <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Get both predict buttons
-            const predictBtns = [
-                document.getElementById('predictBtn'),
-                document.getElementById('predictBtn2')
-            ];
-            
-            // Add click event listeners
-            predictBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Show loading state
-                    const originalText = btn.innerHTML;
-                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-                    btn.disabled = true;
-                    
-                    // Replace with your actual prediction page URL
-                    const predictionPageUrl = 'upload.html';
-                    
-                    // Simulate loading delay
-                    setTimeout(() => {
-                        // Redirect to prediction page
-                        window.location.href = predictionPageUrl;
-                        
-                        // Reset button if redirect fails
-                        setTimeout(() => {
-                            btn.innerHTML = originalText;
-                            btn.disabled = false;
-                        }, 3000);
-                    }, 1000);
-                });
-            });
-            
+    const predictBtns = [
+        document.getElementById('predictBtn'),
+        document.getElementById('predictBtn2')
+    ];
+    
+    predictBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/upload.html';  // Updated link
+        });
+    });
+});
             // Smooth scrolling for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
