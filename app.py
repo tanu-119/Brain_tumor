@@ -24,7 +24,8 @@ label_mapping = {
 # Model configuration
 MODEL_URL = "https://drive.google.com/file/d/1-3KZAIoDLV98_5f9KH84tL07QyQBawxT/view?usp=sharing"  # Replace with your actual file ID
 MODEL_DIR = "model"
-MODEL_PATH = os.path.join(MODEL_DIR, "brain_tumor_model.h5")
+MODEL_PATH = os.path.join("model", "brain_tumor_model.h5")
+
 
 def download_model():
     """Download the model file if it doesn't exist"""
@@ -47,9 +48,7 @@ def download_model():
             raise
 
 def load_tumor_model():
-    """Load the model with comprehensive error handling"""
-    download_model()  # Ensure model exists
-    
+    """Load the model with comprehensive error handling"""    
     try:
         model = load_model(MODEL_PATH, compile=False)
         print("Model loaded successfully with standard method")
@@ -63,6 +62,7 @@ def load_tumor_model():
         except Exception as e:
             print(f"All model loading methods failed: {e}")
             raise
+
 
 # Load the model when starting the app
 model = load_tumor_model()
