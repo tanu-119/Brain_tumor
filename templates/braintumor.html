@@ -320,29 +320,29 @@
 
     <!-- JavaScript -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-    const predictBtns = [
-        document.getElementById('predictBtn'),
-        document.getElementById('predictBtn2')
-    ];
-    
-    predictBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.location.href = '/upload.html';  // Updated link
-        });
-    });
-});
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
+                document.addEventListener('DOMContentLoaded', function() {
+                const predictBtns = [
+                    document.getElementById('predictBtn'),
+                    document.getElementById('predictBtn2')
+                ];
+                
+                predictBtns.forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        window.location.href = '/upload';  // Changed from '/upload.html' to '/upload'
+                    });
+                });
+                
+                // Smooth scrolling (keep this if you want it)
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
                     });
                 });
             });
-        });
-    </script>
+   </script>
 </body>
 </html>
