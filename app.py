@@ -47,7 +47,7 @@ def get_mask_image(mask_array):
 
 @app.route('/')
 def index():
-    return send_from_directory('.', 'braintumor.html')
+    return render_template('braintumor.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
