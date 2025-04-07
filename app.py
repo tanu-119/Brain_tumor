@@ -22,7 +22,7 @@ label_mapping = {
 }
 
 # Model configuration
-MODEL_URL = "https://drive.google.com/file/d/1-3KZAIoDLV98_5f9KH84tL07QyQBawxT/view?usp=sharing"  # Replace with your actual file ID
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1-3KZAIoDLV98_5f9KH84tL07QyQBawxT"  # Replace with your actual file ID
 MODEL_DIR = "model"
 MODEL_PATH = os.path.join("model", "brain_tumor_model.h5")
 
