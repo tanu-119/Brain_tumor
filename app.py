@@ -27,7 +27,6 @@ label_mapping = {
 #MODEL_PATH = os.path.join(MODEL_DIR, "brain_tumor_model.h5")
 
 MODEL_PATH = "brain_tumor_model.h5"
-
 def download_model():
     """Download the model file using gdown if it doesn't exist."""
     if not os.path.exists(MODEL_PATH):
