@@ -22,16 +22,16 @@ label_mapping = {
 }
 
 # Model configuration
-MODEL_URL = "https://drive.google.com/uc?export=download&id=1-3KZAIoDLV98_5f9KH84tL07QyQBawxT"
-MODEL_DIR = "model"
-MODEL_PATH = os.path.join(MODEL_DIR, "brain_tumor_model.h5")
+#MODEL_URL = "https://drive.google.com/uc?export=download&id=1-3KZAIoDLV98_5f9KH84tL07QyQBawxT"
+#MODEL_DIR = "model"
+#MODEL_PATH = os.path.join(MODEL_DIR, "brain_tumor_model.h5")
 
+MODEL_PATH = "brain_tumor_model.h5"
 
 def download_model():
-    """Download the model file from Google Drive using gdown if it doesn't exist."""
+    """Download the model file using gdown if it doesn't exist."""
     if not os.path.exists(MODEL_PATH):
         print("Downloading model with gdown...")
-        os.makedirs(MODEL_DIR, exist_ok=True)
         try:
             file_id = "1-3KZAIoDLV98_5f9KH84tL07QyQBawxT"
             url = f"https://drive.google.com/uc?id={file_id}"
