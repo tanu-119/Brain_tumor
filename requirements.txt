@@ -1,8 +1,8 @@
-flask
-numpy
-tensorflow
-opencv-python
-pillow
-matplotlib
+flask==2.3.2
+tensorflow==2.12.0
+numpy==1.24.3
+opencv-python==4.7.0.72
+pillow==9.5.0
+matplotlib==3.7.1
 requests==2.31.0
 gdown==4.7.1
