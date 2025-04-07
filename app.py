@@ -9,6 +9,7 @@ import base64
 from PIL import Image
 import requests
 import shutil
+import gdown
 
 app = Flask(__name__)
 
@@ -27,19 +28,17 @@ MODEL_PATH = os.path.join(MODEL_DIR, "brain_tumor_model.h5")
 
 
 def download_model():
-    """Download the model file if it doesn't exist"""
+    """Download the model file from Google Drive using gdown if it doesn't exist."""
     if not os.path.exists(MODEL_PATH):
-        print("Downloading model...")
+        print("Downloading model with gdown...")
         os.makedirs(MODEL_DIR, exist_ok=True)
         try:
-            session = requests.Session()
-            response = session.get(MODEL_URL, stream=True)
-            response.raise_for_status()
-            with open(MODEL_PATH, "wb") as f:
-                shutil.copyfileobj(response.raw, f)
+            file_id = "1-3KZAIoDLV98_5f9KH84tL07QyQBawxT"
+            url = f"https://drive.google.com/uc?id={file_id}"
+            gdown.download(url, MODEL_PATH, quiet=False)
             print("Model downloaded successfully!")
         except Exception as e:
-            print(f"Failed to download model: {e}")
+            print(f"Failed to download model with gdown: {e}")
             raise
     else:
         print("Model already exists. Skipping download.")
