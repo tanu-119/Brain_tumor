@@ -1,4 +1,3 @@
-import flask
 from flask import Flask, render_template, request, jsonify, send_from_directory
 import numpy as np
 import cv2
@@ -35,11 +34,15 @@ def download_model():
         os.makedirs(MODEL_DIR, exist_ok=True)
         
         try:
-            # Use gdown for Google Drive downloads
-            import gdown
-            url = "https://drive.google.com/uc?id=1-3KZAIoDLV98_5f9KH84tL07QyQBawxT"
-            gdown.download(url, MODEL_PATH, quiet=False)
+            # For Google Drive downloads
+            session = requests.Session()
+            response = session.get(MODEL_URL, stream=True)
+            
+            # Save the model file
+            with open(MODEL_PATH, "wb") as f:
+                shutil.copyfileobj(response.raw, f)
             print("Model downloaded successfully!")
+            
         except Exception as e:
             print(f"Failed to download model: {e}")
             raise
